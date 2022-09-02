@@ -20,3 +20,36 @@ THEN the saved events persist
 
 var dateCheck = moment().format('dddd, MMMM Do');
 $("#currentDay").append(dateCheck);
+
+//WHEN I view the time blocks for that day - THEN each time block is color-coded to indicate whether it is in the past, present, or future
+
+//current hour to check against time slots
+var currentTime = moment().hour();
+
+var timeBlocks = document.querySelectorAll(".time-block");
+
+//function to check if past, present, or future
+var checkBlock = function (){
+    //loops through all of the time blocks
+    for (i = 0; i < timeBlocks.length; i++){
+
+        var timeSlot = timeBlocks[i].id;
+        timeSlot = parseInt(timeSlot);
+        var thisTime = timeBlocks[i];
+
+        if(timeSlot > currentTime){
+            thisTime.classList.remove("present")
+            thisTime.classList.remove("past")
+            thisTime.classList.add("future")
+        }
+        else if (timeSlot === currentTime){
+            thisTime.classList.remove("future")
+            thisTime.classList.add("present")
+        }
+        else {
+            thisTime.classList.remove("present")
+            thisTime.classList.add("past")
+        }
+}};
+
+checkBlock();
