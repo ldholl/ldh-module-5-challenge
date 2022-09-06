@@ -110,8 +110,9 @@ $(".saveBtn").click (function(){
 console.log("click")
     debugger
     var clickedId = $(this).id;
-    var newText = $(this).closest("textarea");
-    console.log(newText);
+    var newText = $(this).siblings('.description')
+    console.log("newText", newText);
+    console.log(newText.val(), "newText val()")
    
     
     //$(this).closest("textarea").val();
