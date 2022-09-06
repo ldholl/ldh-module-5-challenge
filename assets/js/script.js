@@ -28,6 +28,7 @@ var currentTime = moment().hour();
 
 var timeBlocks = document.querySelectorAll(".time-block");
 
+
 //function to check if past, present, or future
 var checkBlock = function (){
     //loops through all of the time blocks
@@ -53,3 +54,95 @@ var checkBlock = function (){
 }};
 
 checkBlock();
+
+//Interval to recheck times every 30 minutes
+setInterval(function(){
+    checkBlock();
+}, (1000 * 60) * 30);
+
+//WHEN I click into a time block -THEN I can enter an event
+
+var scheduleInputs = document.querySelectorAll("textarea");
+
+var saveBtns = document.querySelectorAll(".saveBtn");
+
+var schedulePairs = [{
+    
+    button: "btn9",
+    textarea: $("#text9"),
+    inputText: $("#text9").val()
+},
+{
+    button: "btn10",
+    textarea: $("#text10"),
+    inputText: $("#text10").val()
+},
+{
+    button: "btn11",
+    textarea: $("#text11"),
+    inputText: $("#text11").val()
+}];
+
+var schedule
+
+//FUNCTION to load slots
+var loadSchedule = function(){
+    schedule = JSON.parse(localStorage.getItem("schedule"));
+
+    if (!schedule){
+        schedule = [
+            nineAm = "",
+            tenAm = "",
+            elevenAm = ""
+        ];
+    }   
+
+  for (i = 0; i < schedulePairs.length; i++){
+    var insert = schedule[i].value;
+    var goalPlace = schedulePairs[i].textarea
+    
+    goalPlace.val(insert);
+  }};
+
+
+
+$(".saveBtn").click (function(){
+console.log("click")
+    debugger
+    var clickedId = $(this).id;
+    var newText = $(this).closest("textarea");
+    console.log(newText);
+   
+    
+    //$(this).closest("textarea").val();
+
+    for (i = 0; i < schedulePairs.length; i++){
+
+        var slots = schedulePairs[i].button;
+        
+        if (clickedId !== slots ){
+           console.log("not a match")
+        }
+        else{
+            var newText = schedulePairs[i].inputText
+            console.log(newText.value);
+            
+        }
+    }
+}
+)
+
+loadSchedule();
+
+
+//WHEN I click the save button for that time block -THEN the text for that event is saved in local storage
+/*
+$(saveBtns).on("click", saveSchedule);
+
+var saveSchedule = function(event){
+    event.preventDefault();
+    
+
+}*/
+
+//WHEN I refresh the page -THEN the saved events persist
