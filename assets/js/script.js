@@ -29,6 +29,7 @@ var currentTime = moment().hour();
 var timeBlocks = document.querySelectorAll(".time-block");
 
 
+
 //function to check if past, present, or future
 var checkBlock = function () {
     //loops through all of the time blocks
@@ -45,10 +46,12 @@ var checkBlock = function () {
         }
         else if (timeSlot === currentTime) {
             thisTime.classList.remove("future")
+            thisTime.classList.remove("past")
             thisTime.classList.add("present")
         }
         else {
             thisTime.classList.remove("present")
+            thisTime.classList.remove("future")
             thisTime.classList.add("past")
         }
     }
@@ -62,8 +65,6 @@ setInterval(function () {
 }, (1000 * 60) * 30);
 
 //WHEN I click into a time block -THEN I can enter an event
-
-var scheduleInputs = document.querySelectorAll("textarea");
 
 var saveBtns = document.querySelectorAll(".saveBtn");
 
@@ -79,35 +80,65 @@ var schedulePairs = [{
 {
     button: "btn11",
     textarea: $("#text11")
+},
+{
+    button: "btn12",
+    textarea: $("#text12")
+},
+{
+    button: "btn1",
+    textarea: $("#text1")
+},
+{
+    button: "btn2",
+    textarea: $("#text2")
+},
+{
+    button: "btn3",
+    textarea: $("#text3")
+},
+{
+    button: "btn4",
+    textarea: $("#text4")
+},
+{
+    button: "btn5",
+    textarea: $("#text5")
 }];
 
 
 
 //FUNCTION to load slots
 var loadSchedule = function () {
-    debugger
+
     var schedule = JSON.parse(localStorage.getItem("schedule"));
-
+    
     if (!schedule) {
-        schedule = [
-            nineAm = "",
-            tenAm = "",
-            elevenAm = "",
-        ];
+        schedule = {
+            nineAm : "",
+            tenAm : "",
+            elevenAm : "",
+            twelvePm : "",
+            onePm : "",
+            twoPm : "",
+            threePm : "",
+            fourPm : "",
+            fivePm : ""
+        };
     }
 
-    for (i = 0; i < schedulePairs.length; i++) {
-        var insert = schedule[i].value;
-        var goalSlot = schedulePairs[i].textarea;
 
-        goalSlot.val(insert);
-        console.log(schedule);
-        localStorage.setItem("schedule", JSON.stringify(schedule));
+var targetEl = document.getElementsByClassName('description');
+for (var i = 0; i < targetEl.length; i ++){
 
-    }
-};
+targetEl[i].innerHTML = Object.values(schedule)[i];
 
-loadSchedule();
+}
+
+localStorage.setItem("schedule", JSON.stringify(schedule));
+ }
+
+
 
 
 //When save button is clicked, its connected text is saved to local storage
@@ -144,5 +175,4 @@ $(".saveBtn").click(function () {
 }
 )
 
-
-
+loadSchedule();
