@@ -18,6 +18,7 @@ THEN the saved events persist
 
 //WHEN I open the planner - THEN the current day is displayed at the top of the calendar
 
+//Sets date at top of document
 var dateCheck = moment().format('dddd, MMMM Do');
 $("#currentDay").append(dateCheck);
 
@@ -27,8 +28,6 @@ $("#currentDay").append(dateCheck);
 var currentTime = moment().hour();
 
 var timeBlocks = document.querySelectorAll(".time-block");
-
-
 
 //function to check if past, present, or future
 var checkBlock = function () {
@@ -112,31 +111,31 @@ var schedulePairs = [{
 var loadSchedule = function () {
 
     var schedule = JSON.parse(localStorage.getItem("schedule"));
-    
+
     if (!schedule) {
         schedule = {
-            nineAm : "",
-            tenAm : "",
-            elevenAm : "",
-            twelvePm : "",
-            onePm : "",
-            twoPm : "",
-            threePm : "",
-            fourPm : "",
-            fivePm : ""
+            nineAm: "",
+            tenAm: "",
+            elevenAm: "",
+            twelvePm: "",
+            onePm: "",
+            twoPm: "",
+            threePm: "",
+            fourPm: "",
+            fivePm: ""
         };
     }
 
 
-var targetEl = document.getElementsByClassName('description');
-for (var i = 0; i < targetEl.length; i ++){
+    var targetEl = document.getElementsByClassName('description');
+    for (var i = 0; i < targetEl.length; i++) {
 
-targetEl[i].innerHTML = Object.values(schedule)[i];
+        targetEl[i].innerHTML = Object.values(schedule)[i];
 
+    }
+
+    localStorage.setItem("schedule", JSON.stringify(schedule));
 }
-
-localStorage.setItem("schedule", JSON.stringify(schedule));
- }
 
 
 
