@@ -164,6 +164,7 @@ $(".saveBtn").click(function () {
 
 
             schedule[i] = newText;
+
             localStorage.setItem("schedule", JSON.stringify(schedule));
             console.log(schedule);
 
